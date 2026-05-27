@@ -1,0 +1,45 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "admin",
+      "password": "Password123",
+      "role": "admin"
+    },
+    {
+      "id": "2",
+      "username": "ivanov",
+      "password": "disp123",
+      "role": "dispatcher"
+    }
+  ],
+  "incidents": [
+    {
+      "id": "1",
+      "flightNumber": "SU-2130",
+      "incidentType": "Отказ датчика скорости",
+      "severity": "Критический",
+      "detectionDate": "2026-05-18",
+      "description": "Расхождение показаний скорости."
+    },
+    {
+      "flightNumber": "SU-123",
+      "incidentType": "Утечка топлива",
+      "severity": "Низкий",
+      "id": "wQQYNX5lucE"
+    },
+    {
+      "flightNumber": "SU-223",
+      "incidentType": "Boom",
+      "severity": "Критический",
+      "id": "bkWRFkX"
+    },
+    {
+      "flightNumber": "SU-2356",
+      "incidentType": "Отказ автопилота",
+      "severity": "Средний",
+      "id": "BqYvsJH"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
