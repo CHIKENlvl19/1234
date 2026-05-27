@@ -20,7 +20,10 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const res = await axios.get(`http://217.71.129.139:4053/users?username=${username}&password=${password}`);
+      const res = await axios.post(`http://217.71.129.139:4053/login`, {
+        username: username,
+        password: password
+      });
       
       if (res.data.length > 0) {
         const userData = res.data[0]; // Берем найденного пользователя
