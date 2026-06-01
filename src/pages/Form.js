@@ -49,7 +49,6 @@ const Form = () => {
           </select>
         </label>
 
-        {/* Кнопка тоже может реагировать на статус отправки */}
         <button 
           type="submit" 
           disabled={isSubmitting} // Блокируем кнопку от двойного клика
