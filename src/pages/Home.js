@@ -1,30 +1,33 @@
-import React, { useEffect, useState } from 'react'; // Добавили useState
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useIncident } from '../context/IncidentContext';
 import { useAuth } from '../context/AuthContext';
 import ErrorMessage from '../components/ErrorMessage';
-import Spinner from '../components/Spinner'; // Импортируем наш спиннер
+import Spinner from '../components/Spinner';
 
 const Home = () => {
   const { incidents, loading, error, loadAll, deleteOne } = useIncident();
   const { user, logout } = useAuth();
   
-  // Локальный стейт для строки поиска
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     loadAll();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (loading) return <Spinner />; // Используем красивый спиннер вместо текста
+  if (loading) return <Spinner />;
 
-  // Магия фильтрации: оставляем только те инциденты, которые содержат введенный текст (ищем по рейсу или типу)
   const filteredIncidents = incidents.filter(inc => 
     inc.flightNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
     inc.incidentType.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleDelete = async (id) => {
+    const isConfirmed = window.confirm("Вы уверены, что хотите удалить этот инцидент? Данное действие необратимо.");
+    if (isConfirmed) {
+      await deleteOne(id);
+    }
+  };
 
   // Функция для определения цвета в зависимости от уровня угрозы
   const getSeverityStyle = (severity) => {
@@ -95,14 +98,13 @@ const Home = () => {
               <td style={tdStyle}><strong>{inc.flightNumber}</strong></td>
               <td style={tdStyle}><Link to={`/detail/${inc.id}`}>{inc.incidentType}</Link></td>
               
-              {/* Здесь мы объединяем базовый стиль ячейки и цвет текста */}
               <td style={{ ...tdStyle, ...getSeverityStyle(inc.severity) }}>
                 {inc.severity}
               </td>
               
               {user.role === 'admin' && (
                 <td style={tdStyle}>
-                  <button onClick={() => deleteOne(inc.id)} style={{ color: '#e53e3e', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}>Удалить</button>
+                  <button onClick={() => handleDelete(inc.id)} style={{ color: '#e53e3e', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}>Удалить</button>
                 </td>
               )}
             </tr>

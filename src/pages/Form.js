@@ -9,7 +9,6 @@ const Form = () => {
   const { addOne, error } = useIncident();
   const navigate = useNavigate();
   
-  // Достаем встроенный флаг isSubmitting
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
 
   const onSubmit = async (data) => {
@@ -21,7 +20,6 @@ const Form = () => {
     }
   };
 
-  // Если форма в данный момент отправляется на сервер — перекрываем экран спиннером
   if (isSubmitting) return <Spinner />;
 
   return (

@@ -17,7 +17,7 @@ const Login = () => {
     
     const success = await login(username, password);
     if (success) {
-      navigate('/'); // Если ок, пускаем в дашборд
+      navigate('/');
     } else {
       setError('Неверный логин или пароль диспетчера');
     }
