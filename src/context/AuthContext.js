@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const res = await axios.post(`http://217.71.129.139:4053/login`, {
+      const res = await axios.post(`http://217.71.129.139:5000/login`, {
         username: username,
         password: password
       });

@@ -8,7 +8,7 @@ export const IncidentProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const API_URL = 'http://217.71.129.139:4053/incidents';
+  const API_URL = 'http://217.71.129.139:5000/incidents';
 
   const loadAll = async () => {
     setLoading(true); setError(null);
