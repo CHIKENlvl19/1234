@@ -46,5 +46,44 @@ app.get('/incidents', async (req, res) => {
     }
 });
 
+app.post('/users', async (req, res) => {
+    const { username, password, role } = req.body;
+    try {
+        const db = await readDB();
+        
+        const hashedPassword = await bcrypt.hash(String(password), 10);
+        
+        const newUser = {
+            id: Date.now().toString(),
+            username: username,
+            passwordHash: hashedPassword,
+            role: role
+        };
+        
+        db.users.push(newUser);
+        await writeDB(db);
+        res.status(201).json({ id: newUser.id, username: newUser.username, role: newUser.role });
+    } catch (err) {
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+app.delete('/users/:id', async (req, res) => {
+    try {
+        const db = await readDB();
+        const filteredUsers = db.users.filter(u => u.id !== req.params.id);
+        
+        if (db.users.length !== filteredUsers.length) {
+            db.users = filteredUsers;
+            await writeDB(db);
+            res.json({});
+        } else {
+            res.status(404).json({ error: 'Not found' });
+        }
+    } catch (err) {
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
 const PORT = 5000;
 app.listen(PORT, '0.0.0.0', () => {});
