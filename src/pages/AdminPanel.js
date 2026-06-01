@@ -9,7 +9,7 @@ const AdminPanel = () => {
   const [newRole, setNewRole] = useState('dispatcher');
 
   const fetchUsers = async () => {
-    const res = await axios.get('http://217.71.129.139:5000/users');
+    const res = await axios.get('http://217.71.129.139:4053/users');
     setUsers(res.data);
   };
 
@@ -19,7 +19,7 @@ const AdminPanel = () => {
 
   const handleAddUser = async (e) => {
     e.preventDefault();
-    await axios.post('http://217.71.129.139:5000/users', {
+    await axios.post('http://217.71.129.139:4053/users', {
       username: newUsername,
       password: newPassword,
       role: newRole
@@ -31,7 +31,7 @@ const AdminPanel = () => {
 
   const handleDeleteUser = async (id) => {
     if (window.confirm('Точно удалить сотрудника?')) {
-      await axios.delete(`http://217.71.129.139:5000/users/${id}`);
+      await axios.delete(`http://217.71.129.139:4053/users/${id}`);
       fetchUsers();
     }
   };
