@@ -16,6 +16,7 @@ const Login = () => {
     setError('');
     
     const success = await login(username, password);
+    
     if (success) {
       navigate('/');
     } else {

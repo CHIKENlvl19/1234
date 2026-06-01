@@ -144,5 +144,5 @@ app.delete('/incidents/:id', async (req, res) => {
     }
 });
 
-const PORT = 4053;
-app.listen(PORT, '0.0.0.0', () => {});
+const PORT = 5000;
+app.listen(PORT, '0.0.0.0', () => console.log(`Server is running on port ${PORT}`));

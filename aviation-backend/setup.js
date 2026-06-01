@@ -10,7 +10,7 @@ async function setup() {
                 id: 1,
                 username: 'admin',
                 passwordHash: hashedPassword,
-                role: 'dispatcher'
+                role: 'admin'
             }
         ],
         incidents: [

@@ -4,7 +4,7 @@
       "id": 1,
       "username": "admin",
       "passwordHash": "$2b$10$uz.R92lkNxnfctQV0i6mYOKBP1DHG0hmAfc7lOc5l0kmnTFGQk9bq",
-      "role": "dispatcher"
+      "role": "admin"
     }
   ],
   "incidents": [
