@@ -17,10 +17,13 @@ const Home = () => {
 
   if (loading) return <Spinner />;
 
-  const filteredIncidents = incidents.filter(inc => 
-    inc.flightNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    inc.incidentType.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredIncidents = incidents.filter(inc => {
+    const safeFlight = inc.flightNumber || "";
+    const safeType = inc.incidentType || "";
+    
+    return safeFlight.toLowerCase().includes(searchTerm.toLowerCase()) ||
+           safeType.toLowerCase().includes(searchTerm.toLowerCase());
+  });
 
   const handleDelete = async (id) => {
     const isConfirmed = window.confirm("Вы уверены, что хотите удалить этот инцидент? Данное действие необратимо.");
