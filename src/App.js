@@ -13,10 +13,8 @@ const App = () => {
     <BrowserRouter>
       <div style={{ maxWidth: '800px', margin: '0 auto', fontFamily: 'sans-serif' }}>
         <Routes>
-          {/* Открытый маршрут */}
           <Route path="/login" element={<Login />} />
 
-          {/* Защищенные маршруты (доступны только после логина) */}
           <Route path="/" element={
             <ProtectedRoute>
               <Home />
@@ -42,8 +40,6 @@ const App = () => {
           } />
 
 
-
-          {/* Ловим все несуществующие ссылки */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

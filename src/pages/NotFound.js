@@ -10,7 +10,7 @@ const NotFound = () => {
         Запрашиваемый сектор воздушного пространства не найден в навигационной системе.
       </p>
       <Link to="/" style={{ padding: '12px 24px', background: '#2b6cb0', color: '#fff', textDecoration: 'none', borderRadius: '5px', fontSize: '16px' }}>
-        📡 Вернуться на радар (Главная)
+        Вернуться на радар (Главная)
       </Link>
     </div>
   );
