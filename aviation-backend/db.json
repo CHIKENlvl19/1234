@@ -1,19 +1,44 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "username": "admin",
-      "passwordHash": "$2b$10$uz.R92lkNxnfctQV0i6mYOKBP1DHG0hmAfc7lOc5l0kmnTFGQk9bq",
+      "passwordHash": "$2b$10$KtWT6im9ENzn0Q5xLOXkHuOjTXstFpBvzBOKMREjUizQU6pjGuzc.",
       "role": "admin"
+    },
+    {
+      "id": "2",
+      "username": "ivanov",
+      "passwordHash": "$2b$10$YaliFeNULbYuGFr6JOKDy.Bb.pkxVNmqqVCdvBoGI1rPexCo7udbW",
+      "role": "dispatcher"
+    },
+    {
+      "id": "1780318057111",
+      "username": "smirnov",
+      "passwordHash": "$2b$10$tbcGDTGxvZV3qyqHsZ9ugevhFm1hpKR6yV/6s5CQNY.sOzYV4s16K",
+      "role": "dispatcher"
     }
   ],
   "incidents": [
     {
-      "id": 1,
-      "date": "19.05.2026",
-      "flight": "SU-102",
-      "title": "Сбой системы выпуска шасси",
-      "description": "Посадка в штатном режиме."
+      "id": "1",
+      "flightNumber": "SU-2130",
+      "incidentType": "Отказ датчика скорости",
+      "severity": "Критический",
+      "detectionDate": "2026-05-18",
+      "description": "Расхождение показаний скорости."
+    },
+    {
+      "flightNumber": "SU-123",
+      "incidentType": "Утечка топлива",
+      "severity": "Низкий",
+      "id": "wQQYNX5lucE"
+    },
+    {
+      "flightNumber": "SU-2356",
+      "incidentType": "Отказ автопилота",
+      "severity": "Средний",
+      "id": "BqYvsJH"
     }
   ]
 }
