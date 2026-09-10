@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 
 const AuthContext = createContext();
 
@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('username');
-    const role = localStorage.getItem('role'); // Достаем роль
+    const role = localStorage.getItem('role');
     
     if (token && username && role) {
       setUser({ username, token, role });
@@ -20,20 +20,19 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const res = await axios.post(`http://217.71.129.139:4053/login`, {
+      const res = await api.post('/login', {
         username: username,
         password: password
       });
       
       if (res.data.length > 0) {
-        const userData = res.data[0]; // Берем найденного пользователя
-        const fakeToken = "auth_token_" + Date.now();
+        const userData = res.data[0];
         
-        localStorage.setItem('token', fakeToken);
+        localStorage.setItem('token', userData.token);
         localStorage.setItem('username', userData.username);
-        localStorage.setItem('role', userData.role); // Сохраняем роль в память
+        localStorage.setItem('role', userData.role);
         
-        setUser({ username: userData.username, role: userData.role, token: fakeToken });
+        setUser({ username: userData.username, role: userData.role, token: userData.token });
         return true;
       }
       return false;
@@ -43,7 +42,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
+    try {
+      await api.post('/logout');
+    } catch (err) {}
     localStorage.removeItem('token');
     localStorage.removeItem('username');
     localStorage.removeItem('role');

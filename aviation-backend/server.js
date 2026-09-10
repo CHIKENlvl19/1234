@@ -8,6 +8,7 @@ app.use(cors());
 app.use(express.json());
 
 const DB_FILE = './db.json';
+const activeTokens = new Map();
 
 async function readDB() {
     const data = await fs.readFile(DB_FILE, 'utf8');
@@ -18,6 +19,19 @@ async function writeDB(data) {
     await fs.writeFile(DB_FILE, JSON.stringify(data, null, 2));
 }
 
+function authMiddleware(req, res, next) {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({ error: 'Unauthorized: токен не предоставлен' });
+    }
+    const token = authHeader.split(' ')[1];
+    if (!activeTokens.has(token)) {
+        return res.status(401).json({ error: 'Unauthorized: недействительный токен' });
+    }
+    req.userId = activeTokens.get(token);
+    next();
+}
+
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
     try {
@@ -26,14 +40,27 @@ app.post('/login', async (req, res) => {
         if (!user) return res.json([]);
 
         const match = await bcrypt.compare(String(password), String(user.passwordHash));
-        if (match) res.json([user]);
+        if (match) {
+            const token = 'token_' + Date.now() + '_' + Math.random().toString(36).substr(2);
+            activeTokens.set(token, user.id);
+            res.json([{ id: user.id, username: user.username, role: user.role, token }]);
+        }
         else res.json([]);
     } catch (err) {
         res.status(500).json({ error: 'Server error' });
     }
 });
 
-app.get('/users', async (req, res) => {
+app.post('/logout', (req, res) => {
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+        const token = authHeader.split(' ')[1];
+        activeTokens.delete(token);
+    }
+    res.json({ message: 'Logged out' });
+});
+
+app.get('/users', authMiddleware, async (req, res) => {
     try {
         const db = await readDB();
         const safeUsers = db.users.map(u => ({ id: u.id, username: u.username, role: u.role }));
@@ -43,7 +70,7 @@ app.get('/users', async (req, res) => {
     }
 });
 
-app.post('/users', async (req, res) => {
+app.post('/users', authMiddleware, async (req, res) => {
     const { username, password, role } = req.body;
     try {
         const db = await readDB();
@@ -64,7 +91,7 @@ app.post('/users', async (req, res) => {
     }
 });
 
-app.delete('/users/:id', async (req, res) => {
+app.delete('/users/:id', authMiddleware, async (req, res) => {
     try {
         const db = await readDB();
         const filteredUsers = db.users.filter(u => u.id !== req.params.id);
@@ -80,7 +107,7 @@ app.delete('/users/:id', async (req, res) => {
     }
 });
 
-app.get('/incidents', async (req, res) => {
+app.get('/incidents', authMiddleware, async (req, res) => {
     try {
         const db = await readDB();
         res.json(db.incidents);
@@ -89,7 +116,7 @@ app.get('/incidents', async (req, res) => {
     }
 });
 
-app.get('/incidents/:id', async (req, res) => {
+app.get('/incidents/:id', authMiddleware, async (req, res) => {
     try {
         const db = await readDB();
         const incident = db.incidents.find(i => i.id === req.params.id);
@@ -100,7 +127,7 @@ app.get('/incidents/:id', async (req, res) => {
     }
 });
 
-app.post('/incidents', async (req, res) => {
+app.post('/incidents', authMiddleware, async (req, res) => {
     try {
         const db = await readDB();
         const newIncident = { id: Date.now().toString(), ...req.body };
@@ -112,7 +139,7 @@ app.post('/incidents', async (req, res) => {
     }
 });
 
-app.put('/incidents/:id', async (req, res) => {
+app.put('/incidents/:id', authMiddleware, async (req, res) => {
     try {
         const db = await readDB();
         const index = db.incidents.findIndex(i => i.id === req.params.id);
@@ -128,7 +155,7 @@ app.put('/incidents/:id', async (req, res) => {
     }
 });
 
-app.delete('/incidents/:id', async (req, res) => {
+app.delete('/incidents/:id', authMiddleware, async (req, res) => {
     try {
         const db = await readDB();
         const filteredIncidents = db.incidents.filter(i => i.id !== req.params.id);
