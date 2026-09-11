@@ -131,6 +131,8 @@ app.post('/incidents', authMiddleware, async (req, res) => {
     try {
         const db = await readDB();
         const newIncident = { id: Date.now().toString(), ...req.body };
+        const maxId = db.incidents.reduce((max, i) => Math.max(max, Number(i.id) || 0), 0);
+        const newIncident = { id: String(maxId + 1), ...req.body };
         db.incidents.push(newIncident);
         await writeDB(db);
         res.status(201).json(newIncident);
