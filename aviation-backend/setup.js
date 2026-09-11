@@ -2,18 +2,48 @@ const bcrypt = require('bcrypt');
 const fs = require('fs');
 
 async function setup() {
-
     const oldUsers = [
         { id: "1", username: "admin", password: "Password123", role: "admin" },
         { id: "2", username: "ivanov", password: "disp123", role: "dispatcher" }
     ];
 
-
     const incidents = [
-        { id: "1", flightNumber: "SU-2130", incidentType: "Отказ датчика скорости", severity: "Критический", detectionDate: "2026-05-18", description: "Расхождение показаний скорости." },
-        { flightNumber: "SU-123", incidentType: "Утечка топлива", severity: "Низкий", id: "wQQYNX5lucE" },
-        { flightNumber: "SU-223", incidentType: "Boom", severity: "Критический", id: "bkWRFkX" },
-        { flightNumber: "SU-2356", incidentType: "Отказ автопилота", severity: "Средний", id: "BqYvsJH" }
+        {
+            id: "1",
+            flightNumber: "SU-2130",
+            incidentType: "Сбой систем контроля доступа",
+            severity: "Критический",
+            location: "КПП авиационной безопасности",
+            status: "В процессе расследования",
+            inspector: "Петров А.И."
+        },
+        {
+            id: "2",
+            flightNumber: "SU-123",
+            incidentType: "Обнаружение опасных предметов",
+            severity: "Высокий",
+            location: "Терминал",
+            status: "Зарегистрирован",
+            inspector: "Сидоров В.К."
+        },
+        {
+            id: "3",
+            flightNumber: "AFL-2234",
+            incidentType: "Несанкционированное проникновение",
+            severity: "Критический",
+            location: "Зона стоянки ВС",
+            status: "Устранен",
+            inspector: "Козлов Д.М."
+        },
+        {
+            id: "4",
+            flightNumber: "SU-2356",
+            incidentType: "Нарушение предполетного досмотра",
+            severity: "Средний",
+            location: "Перрон",
+            status: "Закрыт",
+            inspector: "Иванова Е.С."
+        }
     ];
 
     console.log('Начинаю хеширование паролей...');

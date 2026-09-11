@@ -11,7 +11,7 @@ import NotFound from './pages/NotFound';
 const App = () => {
   return (
     <BrowserRouter>
-      <div style={{ maxWidth: '800px', margin: '0 auto', fontFamily: 'sans-serif' }}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto', fontFamily: 'sans-serif' }}>
         <Routes>
           <Route path="/login" element={<Login />} />
 
