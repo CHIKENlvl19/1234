@@ -23,22 +23,38 @@
     {
       "id": "1",
       "flightNumber": "SU-2130",
-      "incidentType": "Отказ датчика скорости",
+      "incidentType": "Сбой систем контроля доступа",
       "severity": "Критический",
-      "detectionDate": "2026-05-18",
-      "description": "Расхождение показаний скорости."
+      "location": "КПП авиационной безопасности",
+      "status": "В процессе расследования",
+      "inspector": "Петров А.И."
     },
     {
+      "id": "2",
       "flightNumber": "SU-123",
-      "incidentType": "Утечка топлива",
-      "severity": "Низкий",
-      "id": "wQQYNX5lucE"
+      "incidentType": "Обнаружение опасных предметов",
+      "severity": "Высокий",
+      "location": "Терминал",
+      "status": "Зарегистрирован",
+      "inspector": "Сидоров В.К."
     },
     {
+      "id": "3",
+      "flightNumber": "AFL-2234",
+      "incidentType": "Несанкционированное проникновение",
+      "severity": "Критический",
+      "location": "Зона стоянки ВС",
+      "status": "Устранен",
+      "inspector": "Козлов Д.М."
+    },
+    {
+      "id": "4",
       "flightNumber": "SU-2356",
-      "incidentType": "Отказ автопилота",
+      "incidentType": "Нарушение предполетного досмотра",
       "severity": "Средний",
-      "id": "BqYvsJH"
+      "location": "Перрон",
+      "status": "Закрыт",
+      "inspector": "Иванова Е.С."
     }
   ]
 }
