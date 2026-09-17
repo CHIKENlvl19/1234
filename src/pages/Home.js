@@ -101,7 +101,7 @@ const Home = () => {
       <table style={{ borderCollapse: 'collapse', width: '100%', marginTop: '15px' }}>
         <thead>
           <tr>
-            <th style={thStyle}>ID</th>
+            {user.role === 'admin' && <th style={thStyle}>ID</th>}
             <th style={thStyle}>Рейс</th>
             <th style={thStyle}>Тип угрозы</th>
             <th style={thStyle}>Критичность</th>
@@ -114,7 +114,7 @@ const Home = () => {
         <tbody>
           {filteredIncidents.length > 0 ? filteredIncidents.map(inc => (
             <tr key={inc.id}>
-              <td style={tdStyle}>{inc.id}</td>
+              {user.role === 'admin' && <td style={tdStyle}>{inc.id}</td>}
               <td style={tdStyle}><strong>{inc.flightNumber}</strong></td>
               <td style={tdStyle}><Link to={`/detail/${inc.id}`}>{inc.incidentType}</Link></td>
               <td style={{ ...tdStyle, ...getSeverityStyle(inc.severity) }}>{inc.severity}</td>

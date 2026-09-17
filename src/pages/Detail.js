@@ -19,7 +19,6 @@ const Detail = () => {
       setFetching(false);
     };
     fetchInc();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const onSubmit = async (data) => {
