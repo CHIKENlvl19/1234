@@ -1,6 +1,8 @@
 {
   "short_name": "React App",
   "name": "Create React App Sample",
+  "short_name": "Aviation Security",
+  "name": "Aviation Security System",
   "icons": [
     {
       "src": "favicon.ico",
@@ -21,5 +23,6 @@
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
+  "theme_color": "#1a365d",
   "background_color": "#ffffff"
 }
