@@ -76,8 +76,9 @@ app.post('/users', authMiddleware, async (req, res) => {
         const db = await readDB();
         const hashedPassword = await bcrypt.hash(String(password), 10);
         
+        const maxId = db.users.reduce((max, u) => Math.max(max, Number(u.id) || 0), 0);
         const newUser = {
-            id: Date.now().toString(),
+            id: String(maxId + 1),
             username: username,
             passwordHash: hashedPassword,
             role: role
